@@ -1,0 +1,66 @@
+import RepoPage from './components/RepoPage'
+import UserPage from './components/UserPage'
+import { HashRouter as Router, Switch, Route } from 'react-router-dom'
+import './styles.css'
+import { useEffect, useState } from 'react'
+
+export default function App() {
+	
+	const [emojis, setEmojis] = useState()
+	const [colors, setColors] = useState()
+	const [rateLimit, setRateLimit] = useState(60)
+	
+	function makeRequest(url, variableSetter){
+		fetch(url)
+			.then(response => response.json())
+			.then(data => variableSetter(data))
+	}
+	
+	function makeGithubRequest(url, variableSetter){
+		// fetch(url, {
+		// 	headers:{
+		// 	}
+		// })
+		// 	.then(response => response.json())
+		// 	.then(json => variableSetter(json))
+		// 	.then(makeRequest("https://api.github.com/rate_limit", setRateLimit))
+		console.log('fake request')
+	}
+
+	function submitData(e) {
+		e.preventDefault()
+
+		var input = document.getElementById('mainInput').value
+		if (input.includes('/')) {
+			var array = input.split('/')
+			window.location.href = "/#/"+array[0]+"/"+array[1]
+		}
+		else {
+			window.location.href = '/#/'+input
+		}
+	}
+
+	useEffect(() => {
+		makeRequest(process.env.PUBLIC_URL+"/colors.json", setColors)
+		makeRequest(process.env.PUBLIC_URL+'/emojis.json', setEmojis)
+	}, [])
+
+	return (
+		<Router>
+			<p>{rateLimit}</p>
+			<Switch>
+				<Route path="/:username/:repo"><RepoPage colors={colors} emojis={emojis} makeGithubRequest={makeGithubRequest} /></Route>
+				<Route path='/:username'><UserPage colors={colors} emojis={emojis} makeGithubRequest={makeGithubRequest}/></Route>
+				<Route path='/'>
+					<div id='homepage'>
+						<h1>Github Profile</h1>
+						<form onSubmit={(e) => submitData(e)}>
+							<input type='text' placeholder='User or repository' id='mainInput' />
+							<input type='submit' style={{ display: 'none' }} />
+						</form>
+					</div>
+				</Route>
+			</Switch>
+		</Router>
+	);
+}
