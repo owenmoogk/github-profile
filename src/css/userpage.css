@@ -1,0 +1,33 @@
+#userPage {
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+#userPage #left {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+}
+#userPage #left img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+#userPage #left #userText {
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+}
+#userPage #left #userText p {
+  margin-bottom: 5px;
+}
+#userPage #left #userText p span {
+  font-weight: bold;
+}
+#userPage #right {
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
