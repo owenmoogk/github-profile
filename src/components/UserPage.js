@@ -100,7 +100,7 @@ export default function UserPage(props) {
 	}
 
 	return (
-		userData && userRepos
+		userData && userRepos && props.colors && props.emojis
 			? mainPage()
 			: null
 	);
