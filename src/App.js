@@ -16,15 +16,19 @@ export default function App() {
 			.then(data => variableSetter(data))
 	}
 	
+	function getRateLimit(){
+		fetch("https://api.github.com/rate_limit", {
+		})
+			.then(response => response.json())
+			.then(json => setRateLimit(json.rate.remaining))
+	}
+
 	function makeGithubRequest(url, variableSetter){
-		// fetch(url, {
-		// 	headers:{
-		// 	}
-		// })
-		// 	.then(response => response.json())
-		// 	.then(json => variableSetter(json))
-		// 	.then(makeRequest("https://api.github.com/rate_limit", setRateLimit))
-		console.log(url)
+		fetch(url, {
+		})
+			.then(response => response.json())
+			.then(json => variableSetter(json))
+			.then(getRateLimit())
 	}
 
 	function submitData(e) {
