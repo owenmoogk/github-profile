@@ -24,7 +24,7 @@ export default function App() {
 		// 	.then(response => response.json())
 		// 	.then(json => variableSetter(json))
 		// 	.then(makeRequest("https://api.github.com/rate_limit", setRateLimit))
-		console.log('fake request')
+		console.log(url)
 	}
 
 	function submitData(e) {
@@ -47,7 +47,7 @@ export default function App() {
 
 	return (
 		<Router>
-			<p>{rateLimit}</p>
+			<p id='rateLimit'><span>{rateLimit}/60</span><br/>Requests</p>
 			<Switch>
 				<Route path="/:username/:repo"><RepoPage colors={colors} emojis={emojis} makeGithubRequest={makeGithubRequest} /></Route>
 				<Route path='/:username'><UserPage colors={colors} emojis={emojis} makeGithubRequest={makeGithubRequest}/></Route>
