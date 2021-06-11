@@ -44,6 +44,13 @@
   display: inline-block;
   vertical-align: text-bottom;
 }
+#userPage #left #userData #userText .userInfos a {
+  color: white;
+  text-decoration: none;
+}
+#userPage #left #userData #userText .userInfos a:hover {
+  color: lightgrey;
+}
 #userPage #left #userData #userText h1 {
   padding: 0;
 }
