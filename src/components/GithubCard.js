@@ -22,7 +22,7 @@ export default function GithubCard(props) {
 		})
 
 		return (
-			<div id='mainCard' style={{
+			<div class='ghCard' style={{
 				'fontFamily': '-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji',
 				'border': '1px solid #e1e4e8',
 				'borderRadius': '6px',
@@ -81,10 +81,7 @@ export default function GithubCard(props) {
 
 	return (
 		<div>
-			{data && colors && emojis
-				? loadedPage()
-				: null
-			}
+			{loadedPage()}
 		</div>
 	);
 }

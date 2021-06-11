@@ -7,37 +7,140 @@
 	
 	#left{
 		display: flex;
-		flex-direction: row;
-		width: 50%;
-
-		img{
-			width: 200px;
-			height: 200px;
-			border-radius: 50%;
-		}
-
-		#userText{
-			font-size: 20px;
+		flex-direction: column;
+		flex: 3;
+		padding-left: 20px;
+		padding-top: 20px;
+		
+		#userData{
 			display: flex;
-			flex-direction: column;
+			flex-direction: row;
+			width: 100%;
 
-			p{
+			img{
+				width: 300px;
+				height: 300px;
+				border-radius: 50%;
+				margin-right: 20px;
+				border: 10px solid lightblue;
+			}
+	
+			#userText{
+				width: 100%;
+				font-size: 15px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
 
-				margin-bottom: 5px;
+				.userInfos{
 
-				span{
-					font-weight: bold;
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					justify-content: center;
+
+					.userInfo{
+						padding: 0 10px;
+						display: inline-block;
+						vertical-align: text-bottom;
+					}
+					svg{
+						display: inline-block;
+						vertical-align: text-bottom;
+					}
+
+				}
+	
+				h1{
+					margin: 0 auto;
+					padding: 0;
 				}
 
+				h2{
+					margin: 0 auto;
+					color: rgb(180,180,180);
+					a{
+						text-decoration: none;
+						color: inherit;
+					}
+					a:hover{
+						border-bottom: 3px solid rgb(180,180,180);
+					}
+				}
+
+				#userStats{
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					padding-top: 10px;
+					
+					.userStat{
+						display: flex;
+						flex-direction: column;
+						background-color: rgba(255, 255, 255, 0.2);
+						margin: 0 10px;
+						padding: 10px 0;
+						border-radius: 10px;
+						width: 100px;
+						text-align: center;
+						border: 3px solid lightblue;
+
+						span{
+							font-size: 20px;
+							font-weight: bold;
+						}
+					}
+
+				}
+
+				p{
+	
+					margin-bottom: 5px;
+	
+					span{
+						font-weight: bold;
+					}
+	
+				}
 			}
-		}
-		
+		}	
 	}
 
 	#right{
-		width: 50%;
+		flex: 2;
 		justify-content: center;
 		align-items: center;
 		display: flex;
+		flex-direction: column;
+	
+		#githubCards{
+			height: 80vh;
+			overflow-x: scroll;
+			margin: 10px;
+			padding: 0 10px;
+			
+			.ghCard{
+				margin-top: 10px;
+			}
+		}
+
 	}
+
+}
+
+
+/* scrollbar */
+::-webkit-scrollbar {
+	width: 10px;
+}
+::-webkit-scrollbar-thumb {
+	background: grey;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: lightslategrey;
+}
+
+::-webkit-scrollbar-corner{
+	background: transparent
 }
