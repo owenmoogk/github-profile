@@ -1,6 +1,6 @@
 import RepoPage from './components/RepoPage'
 import UserPage from './components/UserPage'
-import { HashRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import './styles.css'
 import { useEffect, useState } from 'react'
 
@@ -37,10 +37,10 @@ export default function App() {
 		var input = document.getElementById('mainInput').value
 		if (input.includes('/')) {
 			var array = input.split('/')
-			window.location.href = "/#/"+array[0]+"/"+array[1]
+			window.location.href = "/"+array[0]+"/"+array[1]
 		}
 		else {
-			window.location.href = '/#/'+input
+			window.location.href = '/'+input
 		}
 	}
 
