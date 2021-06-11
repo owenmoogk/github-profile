@@ -1,12 +1,29 @@
-import { useEffect, useState } from 'react';
 import React from 'react'
 
 export default function GithubCard(props) {
 
-	data = props.data
-	emojis = props.emojis
-	colors = props.colors
+	var data = props.data
+	var emojis = props.emojis
+	var colors = props.colors
 	var description;
+
+	function showOnSearch(searchValue){
+		searchValue = searchValue.toLowerCase()
+		if (data.name.toLowerCase().includes(searchValue)){
+			return(true)
+		}
+		if (data.language){
+			if (data.language.toLowerCase().includes(searchValue)){
+				return(true)
+			}
+		}
+		if (data.description){
+			if (data.description.toLowerCase().includes(searchValue)){
+				return(true)
+			}
+		}
+		return(false)
+	}
 
 	function loadedPage() {
 
@@ -22,7 +39,7 @@ export default function GithubCard(props) {
 		})
 
 		return (
-			<div class='ghCard' style={{
+			<div className='ghCard' style={{
 				'fontFamily': '-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji',
 				'border': '1px solid #e1e4e8',
 				'borderRadius': '6px',
@@ -31,7 +48,15 @@ export default function GithubCard(props) {
 				'fontSize': '14px',
 				'lineHeight': '1.5',
 				'color': '#24292e',
-				'width': '300px'
+				'width': '300px',
+				'display': 
+					props.searchValue
+						? showOnSearch(props.searchValue)
+							? 'inherit'
+							: 'none'
+						: props.display 
+							? props.display 
+							: 'inherit'
 			}}>
 				<div style={{
 					'display': 'flex',
