@@ -86,7 +86,7 @@ export default function UserPage(props) {
 						<div id='githubCards'>
 							{userRepos.map((data, i) => {
 								if (i < 8){
-									return(<GithubCard key={i} data={data} colors={props.colors} emojis={props.emojis} searchValue={searchValue}/>)
+									return(<GithubCard key={i} data={data} colors={props.colors} emojis={props.emojis} searchValue={searchValue} user={username}/>)
 								}
 								else{
 									return(<GithubCard key={i} data={data} colors={props.colors} emojis={props.emojis} display='none' searchValue={searchValue}/>)
