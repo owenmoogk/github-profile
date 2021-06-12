@@ -8,7 +8,8 @@ export default function App() {
 	
 	const [emojis, setEmojis] = useState()
 	const [colors, setColors] = useState()
-	const [rateLimit, setRateLimit] = useState(60)
+	const [rateRemaining, setRateRemaining] = useState()
+	const [rateTotal, setRateTotal] = useState()
 	
 	function makeRequest(url, variableSetter){
 		fetch(url)
@@ -20,7 +21,10 @@ export default function App() {
 		fetch("https://api.github.com/rate_limit", {
 		})
 			.then(response => response.json())
-			.then(json => setRateLimit(json.rate.remaining))
+			.then(json => {
+				setRateRemaining(json.rate.remaining)
+				setRateTotal(json.rate.limit)
+			})
 	}
 
 	function makeGithubRequest(url, variableSetter){
@@ -47,11 +51,12 @@ export default function App() {
 	useEffect(() => {
 		makeRequest(process.env.PUBLIC_URL+"/colors.json", setColors)
 		makeRequest(process.env.PUBLIC_URL+'/emojis.json', setEmojis)
+		getRateLimit()
 	}, [])
 
 	return (
 		<Router>
-			<p id='rateLimit'><span>{rateLimit}/60</span><br/>Requests</p>
+			<p id='rateLimit'><span>{rateRemaining}/{rateTotal}</span><br/>Requests</p>
 			<Switch>
 				<Route path="/:username/:repo"><RepoPage colors={colors} emojis={emojis} makeGithubRequest={makeGithubRequest} /></Route>
 				<Route path='/:username'><UserPage colors={colors} emojis={emojis} makeGithubRequest={makeGithubRequest}/></Route>
