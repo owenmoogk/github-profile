@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import React from 'react'
 import { useParams } from "react-router";
 import GithubCard from './GithubCard'
+// import {useWhatChanged} from '@simbathesailor/use-what-changed'
 
+/* eslint-disable react-hooks/exhaustive-deps */
 export default function UserPage(props) {
 
 	let { username } = useParams()
@@ -10,11 +12,14 @@ export default function UserPage(props) {
 	const [userData, setUserData] = useState()
 	const [userRepos, setUserRepos] = useState()
 	const [searchValue, setSearchValue] = useState()
-
+	
+	// var deps = [username]
+	// useWhatChanged(deps, 'username')
 	useEffect(() => {
 		props.makeGithubRequest("https://api.github.com/users/" + username, setUserData)
 		props.makeGithubRequest("https://api.github.com/users/" + username + '/repos?per_page=1000', setUserRepos)
-	}, [props, username]);
+	}, [username]);
+	
 
 	function mainPage() {
 
