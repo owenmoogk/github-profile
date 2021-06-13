@@ -1,4 +1,5 @@
 {
+	"homepage": "https://owenmoogk.github.io/github-profile/",
 	"name": "github-card",
 	"version": "0.1.0",
 	"private": true,
@@ -38,6 +39,7 @@
 		]
 	},
 	"devDependencies": {
+		"@simbathesailor/use-what-changed": "^2.0.0",
 		"concurrently": "^6.2.0",
 		"gh-pages": "^3.2.0",
 		"less": "^4.1.1",
