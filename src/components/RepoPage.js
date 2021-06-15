@@ -11,12 +11,15 @@ export default function RepoPage(props) {
 	const [data, setData] = useState()
 	const [languageData, setLanguageData] = useState()
 
+	const [hovered, setHovered] = useState()
+	const [selected, setSelected] = useState()
+
 	useEffect(() => {
 		props.makeGithubRequest('https://api.github.com/repos/' + username + '/' + repo, setData)
 	}, [username, repo]);
 
 	useEffect(() => {
-		if (data){
+		if (data) {
 			props.makeGithubRequest(data.languages_url, setLanguageData)
 		}
 	}, [data])
@@ -70,22 +73,33 @@ export default function RepoPage(props) {
 							<PieChart
 								animate={true}
 								startAngle={-90}
-								animationDuration = {1000}
+								animationDuration={1000}
 								lineWidth={25}
 								paddingAngle={3}
-								data = {
-									Object.entries(languageData).map(([language, value]) => {
-										return(
-											{ title: language, value: value, color: props.colors[language].color}
+								radius={45}
+								data={
+									Object.entries(languageData).map(([language, value], i) => {
+										return (
+											{ title: language, value: value, color: props.colors[language].color }
 										)
 									})
 								}
+
+								segmentsStyle={{ transition: '.5s'}}
+								segmentsShift={(index) => (index === selected ? 5 : 0)}
+
+								onMouseOver={(_, index) => {
+									setSelected(index);
+								}}
+								onMouseOut={() => {
+									setSelected(null);
+								}}
 							/>
 						</div>
 						<div id='chartLabels'>
 							{
 								Object.entries(languageData).map(([language, value]) => {
-									return(
+									return (
 										<div>
 											<span style={{ 'width': '14px', 'height': '14px', 'borderRadius': '100%', 'backgroundColor': props.colors[language].color, 'display': 'inline-block', 'top': '1px', 'position': 'relative' }}></span>&nbsp;
 											<span class='language'>{language}</span>
