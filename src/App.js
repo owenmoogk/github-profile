@@ -70,7 +70,7 @@ export default function App() {
 		<Router>
 			<p id='rateLimit'><span>{rateRemaining}/{rateTotal}</span><br/>Requests</p>
 			<Switch>
-				<Route path="/:username/:repo"><RepoPage colors={colors} emojis={emojis} makeGithubRequest={makeGithubRequest} /></Route>
+				<Route path="/:username/:repo"><RepoPage colors={colors} emojis={emojis} makeGithubRequest={makeGithubRequest} notFoundError={notFoundError}/></Route>
 				<Route path='/:username'><UserPage colors={colors} emojis={emojis} makeGithubRequest={makeGithubRequest} notFoundError={notFoundError}/></Route>
 				<Route path='/'>
 					<div id='homepage'>
