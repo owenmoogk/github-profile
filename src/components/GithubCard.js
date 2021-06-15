@@ -73,7 +73,17 @@ export default function GithubCard(props) {
 						<a style={{
 							'textDecoration': 'none',
 							'color': 'inherit'
-						}} href={'/'+props.user+'/'+data.name}>{data.name}</a>
+						}} href={
+								props.link === 'external'
+									? "https://github.com/"+props.user+"/"+data.name
+									: '/'+props.user+'/'+data.name
+							}
+							target={
+								props.link === 'external'
+									? "_blank"
+									: null
+							} rel='noreferrer'>
+						{data.name}</a>
 					</span>
 				</div>
 				<div style={{ 'fontSize': '12px', 'marginBottom': '16px', 'marginTop': '8px', 'color': '#586069' }} dangerouslySetInnerHTML={{ __html: description }}></div>
