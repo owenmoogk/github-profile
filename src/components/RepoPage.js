@@ -8,6 +8,7 @@ import { PieChart } from "react-minimal-pie-chart";
 export default function RepoPage(props) {
 
 	let { username, repo } = useParams()
+	
 	const [data, setData] = useState()
 	const [languageData, setLanguageData] = useState()
 
@@ -45,10 +46,12 @@ export default function RepoPage(props) {
 								)
 							})
 						}
-
 						segmentsStyle={{ transition: '.5s' }}
-						segmentsShift={(index) => (index === selected ? 5 : 0)}
-
+						segmentsShift={
+							Object.entries(languageData).length > 1
+								? (index) => (index === selected ? 5 : 0)
+								: null
+						}				
 						onMouseOver={(_, index) => {
 							setSelected(index);
 						}}
