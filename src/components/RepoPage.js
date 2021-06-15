@@ -11,7 +11,6 @@ export default function RepoPage(props) {
 	const [data, setData] = useState()
 	const [languageData, setLanguageData] = useState()
 
-	const [hovered, setHovered] = useState()
 	const [selected, setSelected] = useState()
 
 	useEffect(() => {
@@ -24,6 +23,57 @@ export default function RepoPage(props) {
 		}
 	}, [data])
 
+	function renderChart() {
+		return (
+			<div id='chart'>
+				<div id='chartContainer'>
+					<PieChart
+						animate={true}
+						startAngle={-90}
+						animationDuration={1000}
+						lineWidth={25}
+						paddingAngle={
+							Object.entries(languageData).length > 1
+								? 3
+								: 0
+						}
+						radius={45}
+						data={
+							Object.entries(languageData).map(([language, value], i) => {
+								return (
+									{ title: language, value: value, color: props.colors[language].color }
+								)
+							})
+						}
+
+						segmentsStyle={{ transition: '.5s' }}
+						segmentsShift={(index) => (index === selected ? 5 : 0)}
+
+						onMouseOver={(_, index) => {
+							setSelected(index);
+						}}
+						onMouseOut={() => {
+							setSelected(null);
+						}}
+					/>
+				</div>
+				<div id='chartLabels'>
+					{
+						Object.entries(languageData).map(([language, value]) => {
+							return (
+								<div>
+									<span style={{ 'width': '14px', 'height': '14px', 'borderRadius': '100%', 'backgroundColor': props.colors[language].color, 'display': 'inline-block', 'top': '1px', 'position': 'relative' }}></span>&nbsp;
+									<span class='language'>{language}</span>
+								</div>
+							)
+						})
+					}
+				</div>
+			</div>
+
+		)
+	}
+
 	function mainPage() {
 
 		// date parsing
@@ -35,11 +85,21 @@ export default function RepoPage(props) {
 				<div id="left">
 					<div id='title'>
 						<h1>{data.name}</h1>
-						add a forked from
 						<h2>
 							<a href={"https://github.com/" + data.owner.login} target='blank'>@{data.owner.login}</a>/<a href={'https://github.com/' + data.owner.login + '/' + data.name} target='_blank'>{data.name}</a>
 						</h2>
-
+						{
+							data.fork
+								? <p className='info'>
+									<svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="octicon octicon-repo-forked" style={{ fill: 'currentcolor' }}>
+										<path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path>
+									</svg>&nbsp;Forked from
+									<a style={{
+										'color': 'inherit',
+										'textDecoration': 'none'
+									}} href={data.fork ? data.source.html_url : ''}>{data.fork ? data.source.full_name : ''}</a></p>
+								: null
+						}
 						<div id='stats'>
 							<div className='stat'>
 								<span>{data.stargazers_count}</span>
@@ -68,50 +128,13 @@ export default function RepoPage(props) {
 								: null
 						}
 					</div>
-					<div id='chart'>
-						<div id='chartContainer'>
-							<PieChart
-								animate={true}
-								startAngle={-90}
-								animationDuration={1000}
-								lineWidth={25}
-								paddingAngle={3}
-								radius={45}
-								data={
-									Object.entries(languageData).map(([language, value], i) => {
-										return (
-											{ title: language, value: value, color: props.colors[language].color }
-										)
-									})
-								}
-
-								segmentsStyle={{ transition: '.5s'}}
-								segmentsShift={(index) => (index === selected ? 5 : 0)}
-
-								onMouseOver={(_, index) => {
-									setSelected(index);
-								}}
-								onMouseOut={() => {
-									setSelected(null);
-								}}
-							/>
-						</div>
-						<div id='chartLabels'>
-							{
-								Object.entries(languageData).map(([language, value]) => {
-									return (
-										<div>
-											<span style={{ 'width': '14px', 'height': '14px', 'borderRadius': '100%', 'backgroundColor': props.colors[language].color, 'display': 'inline-block', 'top': '1px', 'position': 'relative' }}></span>&nbsp;
-											<span class='language'>{language}</span>
-										</div>
-									)
-								})
-							}
-						</div>
-					</div>
-
+					{
+						Object.entries(languageData).length === 0
+							? null
+							: renderChart()
+					}
 					<div id='data'>
-						{/* <GithubCard data={data} colors={props.colors} emojis={props.emojis} user={username} link='external' /> */}
+						<GithubCard data={data} colors={props.colors} emojis={props.emojis} user={username} link='external' />
 					</div>
 				</div>
 
