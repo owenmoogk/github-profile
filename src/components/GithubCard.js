@@ -86,6 +86,19 @@ export default function GithubCard(props) {
 						{data.name}</a>
 					</span>
 				</div>
+				{
+					props.link === 'external'
+						? <div style={{
+							'display': data.fork ? 'block' : 'none',
+							'fontSize': '12px',
+							'color': '#586069'
+						}}>Forked from
+							<a style={{
+								'color': 'inherit',
+								'textDecoration': 'none'
+							}} href={data.fork ? data.source.html_url : ''}>{data.fork ? data.source.full_name : ''}</a></div>
+						: null
+				}
 				<div style={{ 'fontSize': '12px', 'marginBottom': '16px', 'marginTop': '8px', 'color': '#586069' }} dangerouslySetInnerHTML={{ __html: description }}></div>
 				<div style={{ 'fontSize': '12px', 'color': '#586069', 'display': 'flex' }}>
 					<div style={{ 'display': data.language ? '' : 'none', 'marginRight': '16px' }}>
