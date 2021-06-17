@@ -2,7 +2,6 @@
   color: white;
   display: flex;
   flex-direction: row;
-  justify-content: center;
 }
 #repoPage #left {
   display: flex;
@@ -11,44 +10,47 @@
   padding-left: 40px;
   padding-top: 20px;
 }
-#repoPage #left #title svg {
+#repoPage #left #title #titleleft {
+  padding-right: 50px;
+}
+#repoPage #left #title #titleleft h1 {
+  padding: 0;
+}
+#repoPage #left #title #titleleft h2 {
+  color: lightgrey;
+}
+#repoPage #left #title #titleleft h2 a {
+  color: lightgrey;
+  text-decoration: none;
+}
+#repoPage #left #title #titleleft h2 a:hover {
+  color: lightgrey;
+  border-bottom: 3px solid lightgrey;
+}
+#repoPage #left #title #titleleft a {
+  color: white;
+  text-decoration: none;
+}
+#repoPage #left #title #titleleft a:hover {
+  color: lightgrey;
+}
+#repoPage #left #title #titleright svg {
   display: inline-block;
   vertical-align: text-bottom;
 }
-#repoPage #left #title .info {
+#repoPage #left #title #titleright .info {
   padding-right: 20px;
   padding-bottom: 20px;
   margin: 0;
   display: inline-block;
   vertical-align: text-bottom;
 }
-#repoPage #left #title h1 {
-  padding: 0;
-}
-#repoPage #left #title h2 {
-  color: lightgrey;
-}
-#repoPage #left #title h2 a {
-  color: lightgrey;
-  text-decoration: none;
-}
-#repoPage #left #title h2 a:hover {
-  color: lightgrey;
-  border-bottom: 3px solid lightgrey;
-}
-#repoPage #left #title a {
-  color: white;
-  text-decoration: none;
-}
-#repoPage #left #title a:hover {
-  color: lightgrey;
-}
-#repoPage #left #title #stats {
+#repoPage #left #title #titleright #stats {
   display: flex;
   padding-top: 10px;
   padding-bottom: 10px;
 }
-#repoPage #left #title #stats .stat {
+#repoPage #left #title #titleright #stats .stat {
   display: flex;
   flex-direction: column;
   background-color: rgba(255, 255, 255, 0.2);
@@ -59,24 +61,27 @@
   text-align: center;
   border: 3px solid lightblue;
 }
-#repoPage #left #title #stats .stat span {
+#repoPage #left #title #titleright #stats .stat span {
   font-size: 20px;
   font-weight: bold;
 }
-#repoPage #left #title .language {
-  font-weight: bold;
-  font-size: 15px;
-  margin-left: 10px;
+#repoPage #left #bottom {
+  display: flex;
+  flex-direction: row;
+  height: 450px;
 }
-#repoPage #left #chart {
+#repoPage #left #bottom #chartContainer h2 {
+  margin-bottom: 0;
+}
+#repoPage #left #bottom #chart {
   width: 350px;
   height: 350px;
 }
-#repoPage #left #chart #chartContainer {
+#repoPage #left #bottom #chart #chartContainer {
   height: 350px;
   width: 350px;
 }
-#repoPage #left #chart #chartLabels {
+#repoPage #left #bottom #chart #chartLabels {
   padding-top: 10px;
   width: 100%;
   position: relative;
@@ -88,8 +93,34 @@
   flex-direction: column;
   align-items: center;
 }
-#repoPage #left #chart #chartLabels div {
+#repoPage #left #bottom #chart #chartLabels div {
   width: fit-content;
+}
+#repoPage #left #bottom #contributors {
+  padding-left: 20px;
+  min-width: 300px;
+}
+#repoPage #left #bottom #contributors #contributorList {
+  overflow-y: scroll;
+  height: 250px;
+}
+#repoPage #left #bottom #contributors a {
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#repoPage #left #bottom #contributors img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid lightblue;
+}
+#repoPage #left #bottom #contributors span {
+  padding-bottom: 5px;
 }
 #repoPage #left #githubCards {
   margin: 10px;
@@ -107,4 +138,8 @@
 #repoPage #left #githubCards > div {
   margin: 0;
   padding: 0;
+}
+.customGraphLabel {
+  width: 50px;
+  height: 50px;
 }

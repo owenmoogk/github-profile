@@ -3,14 +3,17 @@ import React from 'react'
 import { useParams } from "react-router";
 import GithubCard from "./GithubCard";
 import { PieChart } from "react-minimal-pie-chart";
+import { BarChart, XAxis, YAxis, Bar, Legend, Tooltip, CartesianGrid } from "recharts";
+import CustomAxisTick from "./CustomAxisTick";
 
 /* eslint-disable react-hooks/exhaustive-deps */
 export default function RepoPage(props) {
 
 	let { username, repo } = useParams()
-	
+
 	const [data, setData] = useState()
 	const [languageData, setLanguageData] = useState()
+	const [contributorData, setContributorData] = useState()
 
 	const [selected, setSelected] = useState()
 
@@ -21,6 +24,7 @@ export default function RepoPage(props) {
 	useEffect(() => {
 		if (data) {
 			props.makeGithubRequest(data.languages_url, setLanguageData)
+			props.makeGithubRequest(data.contributors_url + '?per_page=10', setContributorData)
 		}
 	}, [data])
 
@@ -51,7 +55,7 @@ export default function RepoPage(props) {
 							Object.entries(languageData).length > 1
 								? (index) => (index === selected ? 5 : 0)
 								: null
-						}				
+						}
 						onMouseOver={(_, index) => {
 							setSelected(index);
 						}}
@@ -62,11 +66,11 @@ export default function RepoPage(props) {
 				</div>
 				<div id='chartLabels'>
 					{
-						Object.entries(languageData).map(([language, value]) => {
+						Object.entries(languageData).map(([language, value], i) => {
 							return (
-								<div>
+								<div key={i}>
 									<span style={{ 'width': '14px', 'height': '14px', 'borderRadius': '100%', 'backgroundColor': props.colors[language].color, 'display': 'inline-block', 'top': '1px', 'position': 'relative' }}></span>&nbsp;
-									<span class='language'>{language}</span>
+									<span className='language'>{language}</span>
 								</div>
 							)
 						})
@@ -87,40 +91,40 @@ export default function RepoPage(props) {
 			<div id='repoPage'>
 				<div id="left">
 					<div id='title'>
-						<h1>{data.name}</h1>
-						<h2>
-							<a href={"https://github.com/" + data.owner.login} target='blank'>@{data.owner.login}</a>/<a href={'https://github.com/' + data.owner.login + '/' + data.name} target='_blank'>{data.name}</a>
-						</h2>
-						{
-							data.fork
-								? <p className='info'>
-									<svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="octicon octicon-repo-forked" style={{ fill: 'currentcolor' }}>
-										<path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path>
-									</svg>&nbsp;Forked from
-									<a style={{
-										'color': 'inherit',
-										'textDecoration': 'none'
-									}} href={data.fork ? data.source.html_url : ''}>{data.fork ? data.source.full_name : ''}</a></p>
-								: null
-						}
-						<div id='stats'>
-							<div className='stat'>
-								<span>{data.stargazers_count}</span>
-								Stars
-							</div>
-							<div className='stat'>
-								<span>{data.forks}</span>
-								Forks
-							</div>
-							<div className='stat'>
-								<span>{data.subscribers_count}</span>
-								Watchers
-							</div>
+						<div id='titleleft'>
+							<h1>{data.name}</h1>
+							<h2>
+								<a href={"https://github.com/" + data.owner.login} target='_blank' rel="noreferrer">@{data.owner.login}</a>/<a href={'https://github.com/' + data.owner.login + '/' + data.name} target='_blank' rel='noreferrer'>{data.name}</a>
+							</h2>
 						</div>
-
-						<br />
-
-						<p className='info'>
+						<div id='titleright'>
+							<div id='stats'>
+								<div className='stat'>
+									<span>{data.stargazers_count}</span>
+									Stars
+								</div>
+								<div className='stat'>
+									<span>{data.forks}</span>
+									Forks
+								</div>
+								<div className='stat'>
+									<span>{data.subscribers_count}</span>
+									Watchers
+								</div>
+							</div>
+							{
+								data.fork
+									? <p className='info'>
+										<svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" className="octicon octicon-repo-forked" style={{ fill: 'currentcolor' }}>
+											<path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path>
+										</svg>&nbsp;Forked from
+										<a style={{
+											'color': 'inherit',
+											'textDecoration': 'none'
+										}} href={data.fork ? data.source.html_url : ''}>{data.fork ? data.source.full_name : ''}</a></p>
+									: null
+							}
+							<p className='info'>
 							<svg aria-hidden="true" height="18" role="img" viewBox="0 0 14 16" width="16" style={{ fill: 'currentcolor' }}><path fillRule="evenodd" d="M13 2h-1v1.5c0 .28-.22.5-.5.5h-2c-.28 0-.5-.22-.5-.5V2H6v1.5c0 .28-.22.5-.5.5h-2c-.28 0-.5-.22-.5-.5V2H2c-.55 0-1 .45-1 1v11c0 .55.45 1 1 1h11c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm0 12H2V5h11v9zM5 3H4V1h1v2zm6 0h-1V1h1v2zM6 7H5V6h1v1zm2 0H7V6h1v1zm2 0H9V6h1v1zm2 0h-1V6h1v1zM4 9H3V8h1v1zm2 0H5V8h1v1zm2 0H7V8h1v1zm2 0H9V8h1v1zm2 0h-1V8h1v1zm-8 2H3v-1h1v1zm2 0H5v-1h1v1zm2 0H7v-1h1v1zm2 0H9v-1h1v1zm2 0h-1v-1h1v1zm-8 2H3v-1h1v1zm2 0H5v-1h1v1zm2 0H7v-1h1v1zm2 0H9v-1h1v1z"></path></svg> &nbsp;Created {date}
 						</p>
 						{
@@ -130,28 +134,72 @@ export default function RepoPage(props) {
 								</p>
 								: null
 						}
+						</div>
 					</div>
-					{
-						Object.entries(languageData).length === 0
-							? null
-							: renderChart()
-					}
-					<div id='data'>
-						<GithubCard data={data} colors={props.colors} emojis={props.emojis} user={username} link='external' />
-					</div>
-				</div>
+					<div id='bottom'>
+						<div id='chartContainer'>
+							<h2>
+								Languages
+							</h2>
+							{
+								Object.entries(languageData).length === 0
+									? null
+									: renderChart()
+							}
+						</div>
+						<div id='contributors'>
+							<h2>
+								Top Contributors
+							</h2>
 
+							<div id='contributorList'>
+								{contributorData.map((user, i) => {
+									return (
+										<a key={i} href={user.html_url} target='_blank' rel='noreferrer'>
+											<img src={user.avatar_url} />
+											<span> &nbsp; {user.login}</span>
+										</a>
+									)
+								})}
+
+							</div>
+						</div>
+
+						<div id='contributorChart'>
+
+							<h2>
+								Contributions by User
+							</h2>
+
+							<BarChart width={730} height={350} data={contributorData} >
+								<CartesianGrid stroke='grey' strokeDasharray="5 5" />
+								<XAxis stroke='white' dataKey="login" interval={0} tick={<CustomAxisTick />} overflow='display' height={100} />
+								<YAxis stroke='white' />
+								{/* <Tooltip stroke='transparent'/> */}
+								<Bar dataKey="contributions" fill="#8884d8" />
+							</BarChart>
+
+						</div>
+
+					</div>
+					{/* <div id='data'>
+						<GithubCard data={data} colors={props.colors} emojis={props.emojis} user={username} link='external' />
+					</div> */}
+				</div>
 			</div>
 		)
 	}
 
 	return (
 		data && props.colors && props.emojis
+
+			// checking if it is a valid repo
 			? data.id
-				? languageData
+				? languageData && contributorData
 					? mainPage()
 					: null
 				: props.notFoundError()
+
 			: null
 	);
 }
