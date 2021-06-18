@@ -32,39 +32,15 @@
 #repoPage #title a:hover {
   color: lightgrey;
 }
-#repoPage #title svg {
+#repoPage #title span {
+  margin-right: 15px;
+}
+#repoPage #title span svg {
   display: inline-block;
   vertical-align: text-bottom;
 }
 #repoPage #title .info {
-  padding-right: 20px;
-  padding-bottom: 20px;
-  margin: 0;
-  display: inline-block;
-  vertical-align: text-bottom;
-}
-#repoPage #title #stats {
-  display: flex;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  flex-direction: row;
-  padding-left: 40px;
-}
-#repoPage #title #stats .stat {
-  display: flex;
-  flex-direction: column;
-  background-color: rgba(255, 255, 255, 0.2);
-  margin-right: 20px;
-  padding: 10px 0;
-  border-radius: 10px;
-  width: 100px;
-  height: fit-content;
-  text-align: center;
-  border: 3px solid lightblue;
-}
-#repoPage #title #stats .stat span {
-  font-size: 20px;
-  font-weight: bold;
+  line-height: 25px;
 }
 #repoPage #buttons .stateButton {
   font-size: 20px;
