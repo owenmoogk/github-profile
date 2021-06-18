@@ -3,26 +3,28 @@
   display: flex;
   flex-direction: column;
   flex: 3;
-  padding-left: 40px;
   padding-top: 20px;
 }
 #repoPage #title {
   display: flex;
-  flex: row;
-  padding-right: 50px;
+  flex-direction: column;
+  padding-bottom: 20px;
+  text-align: center;
 }
 #repoPage #title h1 {
   padding: 0;
+  width: 100%;
 }
 #repoPage #title h2 {
   color: lightgrey;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 #repoPage #title h2 a {
   color: lightgrey;
   text-decoration: none;
 }
 #repoPage #title h2 a:hover {
-  color: lightgrey;
   border-bottom: 3px solid lightgrey;
 }
 #repoPage #title a {
@@ -41,6 +43,11 @@
 }
 #repoPage #title .info {
   line-height: 25px;
+  margin: 0;
+}
+#repoPage #buttons {
+  text-align: center;
+  margin-bottom: 20px;
 }
 #repoPage #buttons .stateButton {
   font-size: 20px;
@@ -60,19 +67,33 @@
   display: flex;
   flex-direction: row;
   height: 450px;
+  justify-content: center;
 }
-#repoPage #dataPage #chartContainer h2 {
-  margin-bottom: 0;
+#repoPage #dataPage h2 {
+  text-align: center;
 }
-#repoPage #dataPage #chart {
+#repoPage #dataPage .dataCard {
+  background-color: #c8c8c8;
+  border-radius: 40px;
+  color: black;
+  height: 100%;
+  margin: 20px;
+}
+#repoPage #dataPage #languageCard {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+#repoPage #dataPage #languageChart {
   width: 350px;
   height: 350px;
 }
-#repoPage #dataPage #chart #chartContainer {
+#repoPage #dataPage #languageChart #chartContainer {
   height: 350px;
   width: 350px;
 }
-#repoPage #dataPage #chart #chartLabels {
+#repoPage #dataPage #languageChart #chartLabels {
+  font-weight: bold;
   padding-top: 10px;
   width: 100%;
   position: relative;
@@ -84,25 +105,28 @@
   flex-direction: column;
   align-items: center;
 }
-#repoPage #dataPage #chart #chartLabels div {
+#repoPage #dataPage #languageChart #chartLabels div {
   width: fit-content;
 }
 #repoPage #dataPage #contributors {
-  padding-left: 20px;
+  padding: 0 20px;
   min-width: 300px;
 }
 #repoPage #dataPage #contributors #contributorList {
   overflow-y: scroll;
-  height: 250px;
+  height: 350px;
 }
 #repoPage #dataPage #contributors a {
-  color: white;
+  color: black;
   text-decoration: none;
   font-size: 20px;
   margin-bottom: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+#repoPage #dataPage #contributors a:hover {
+  color: grey;
 }
 #repoPage #dataPage #contributors img {
   width: 50px;

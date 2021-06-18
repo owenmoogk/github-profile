@@ -3,28 +3,31 @@
 	display: flex;
 	flex-direction: column;
 	flex: 3;
-	padding-left: 40px;
 	padding-top: 20px;
 	
 	#title{
 		
 		display: flex;
-		flex: row;
-		padding-right: 50px;
+		flex-direction: column;
+		padding-bottom: 20px;
+		text-align: center;
 
 		h1{
 			padding: 0;
+			width: 100%;
 		}
 
 		h2{
 			color: lightgrey;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			
 			a{
 				color: lightgrey;
 				text-decoration: none;
 			}
 
 			a:hover{
-				color: lightgrey;
 				border-bottom: 3px solid lightgrey;
 			}
 		}
@@ -50,10 +53,15 @@
 
 		.info{
 			line-height: 25px;
+			margin: 0;
 		}
 	}
 
 	#buttons{
+
+		text-align: center;
+		margin-bottom: 20px;
+
 		.stateButton{
 			font-size: 20px;
 			outline: none;
@@ -75,15 +83,28 @@
 		display: flex;
 		flex-direction: row;
 		height: 450px;
-
-		#chartContainer{
-			h2{
-				margin-bottom: 0;
-			}
+		justify-content: center;
+		
+		h2{
+			text-align: center;
 		}
 
-		#chart{
-		
+		.dataCard{
+			background-color: rgb(200,200,200);
+			border-radius: 40px;
+			color: black;
+			height: 100%;
+			margin: 20px;
+		}
+
+		#languageCard{
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+		}
+
+		#languageChart{
+			
 			width: 350px;
 			height: 350px;
 		
@@ -93,6 +114,7 @@
 			}
 		
 			#chartLabels{
+				font-weight: bold;
 				padding-top: 10px;
 				width: 100%;
 				position: relative;
@@ -113,16 +135,16 @@
 		}
 
 		#contributors{
-			padding-left: 20px;
+			padding: 0 20px;
 			min-width: 300px;
 
 			#contributorList{
 				overflow-y: scroll;
-				height: 250px;
+				height: 350px;
 			}
 
 			a{
-				color: white;
+				color: black;
 				text-decoration: none;
 				font-size: 20px;
 				margin-bottom: 10px;
@@ -130,6 +152,10 @@
 				display: flex;
 				flex-direction: row;
 				align-items: center;
+			}
+
+			a:hover{
+				color: grey;
 			}
 
 			img{

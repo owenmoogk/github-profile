@@ -57,14 +57,13 @@ export default function RepoPage(props) {
 				<br />
 				{
 					data.fork
-						? <p className='info'>
+						? <span>
 							<svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" className="octicon octicon-repo-forked" style={{ fill: 'currentcolor' }}>
 								<path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path>
-							</svg>&nbsp;Forked from
+							</svg>&nbsp;Forked from&nbsp;
 							<a style={{
-								'color': 'inherit',
 								'textDecoration': 'none'
-							}} href={data.fork ? data.source.html_url : ''}>{data.fork ? data.source.full_name : ''}</a></p>
+							}} href={data.fork ? data.source.html_url : ''} target='_blank' rel='noreferrer'>{data.fork ? data.source.full_name : ''}</a><br /></span>
 						: null
 				}
 				<span>
@@ -85,15 +84,12 @@ export default function RepoPage(props) {
 
 		return (
 			<div id='title'>
+				<h1>{data.name}</h1>
+				<h2>
+					<a href={"https://github.com/" + data.owner.login} target='_blank' rel="noreferrer">@{data.owner.login}</a>/<a href={'https://github.com/' + data.owner.login + '/' + data.name} target='_blank' rel='noreferrer'>{data.name}</a>
+				</h2>
 
-				<div id='titleContent'>
-					<h1>{data.name}</h1>
-					<h2>
-						<a href={"https://github.com/" + data.owner.login} target='_blank' rel="noreferrer">@{data.owner.login}</a>/<a href={'https://github.com/' + data.owner.login + '/' + data.name} target='_blank' rel='noreferrer'>{data.name}</a>
-					</h2>
-
-					{titleIcons()}
-				</div>
+				{titleIcons()}
 			</div>
 		)
 	}
@@ -102,7 +98,7 @@ export default function RepoPage(props) {
 
 		function renderLanguageChart() {
 			return (
-				<div id='chart'>
+				<div id='languageChart'>
 					<div id='chartContainer'>
 						<PieChart
 							animate={true}
@@ -153,10 +149,28 @@ export default function RepoPage(props) {
 			)
 		}
 
+		function renderContributorChart() {
+
+			var width = contributorData.length * 65
+
+			if (width < 400) {
+				width = 400
+			}
+
+			return (
+				<BarChart width={width} height={350} data={contributorData} margin={{ right: 20 }}>
+					<CartesianGrid stroke='grey' strokeDasharray="5 5" />
+					<XAxis stroke='black' dataKey="login" interval={0} tick={<CustomAxisTick />} overflow='display' height={100} />
+					<YAxis stroke='black' />
+					{/* <Tooltip stroke='transparent'/> */}
+					<Bar dataKey="contributions" fill="#8884d8" />
+				</BarChart>
+			)
+		}
+
 		return (
 			<div id='dataPage'>
-
-				<div id='chartContainer'>
+				<div className='dataCard' id='languageCard'>
 					<h2>
 						Languages
 					</h2>
@@ -167,7 +181,7 @@ export default function RepoPage(props) {
 					}
 				</div>
 
-				<div id='contributors'>
+				<div id='contributors' className='dataCard'>
 					<h2>
 						Top Contributors
 					</h2>
@@ -175,7 +189,7 @@ export default function RepoPage(props) {
 					<div id='contributorList'>
 						{contributorData.map((user, i) => {
 							return (
-								<a key={i} href={user.html_url} target='_blank' rel='noreferrer'>
+								<a key={i} href={'/'+user.login}>
 									<img src={user.avatar_url} alt='' />
 									<span> &nbsp; {user.login}</span>
 								</a>
@@ -184,20 +198,13 @@ export default function RepoPage(props) {
 
 					</div>
 				</div>
-
-				<div id='contributorChart'>
+				<div id='contributorChart' className='dataCard'>
 
 					<h2>
-						Contributions by User
+						Contributions
 					</h2>
 
-					<BarChart width={730} height={350} data={contributorData} >
-						<CartesianGrid stroke='grey' strokeDasharray="5 5" />
-						<XAxis stroke='white' dataKey="login" interval={0} tick={<CustomAxisTick />} overflow='display' height={100} />
-						<YAxis stroke='white' />
-						{/* <Tooltip stroke='transparent'/> */}
-						<Bar dataKey="contributions" fill="#8884d8" />
-					</BarChart>
+					{renderContributorChart()}
 
 				</div>
 
@@ -219,7 +226,7 @@ export default function RepoPage(props) {
 			<div id='repoPage'>
 				{renderTitle()}
 				<div id='buttons'>
-					<button onClick={() => setPage('data')} className={'stateButton ' + (page == 'data' ? 'active' : '')}>Data</button>
+					<button onClick={() => setPage('data')} className={'stateButton ' + (page == 'data' ? 'active' : '')}>Repo Data</button>
 					<button onClick={() => setPage('components')} className={'stateButton' + (page == 'components' ? ' active' : '')}>Components</button>
 				</div>
 
