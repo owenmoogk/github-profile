@@ -114,3 +114,27 @@
   margin: 0;
   padding: 0;
 }
+#userPage #stackedBarChart {
+  display: flex;
+  flex-direction: row;
+  width: 350px;
+  margin-top: 10px;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 8px;
+  transition: 0.5s;
+}
+#userPage #stackedBarChart span {
+  height: 100%;
+}
+#userPage #stackedBarChart span .languageTitle {
+  display: none;
+  padding: 2px 5px;
+}
+#userPage #stackedBarChart:hover {
+  height: 24px;
+  width: fit-content;
+}
+#userPage #stackedBarChart:hover .languageTitle {
+  display: inherit;
+}

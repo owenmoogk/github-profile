@@ -20,6 +20,55 @@ export default function UserPage(props) {
 		props.makeGithubRequest("https://api.github.com/users/" + username + '/repos?per_page=1000', setUserRepos)
 	}, [username]);
 
+	function stackedBarChart() {
+
+		var languageData = {}
+		for (const repo of userRepos) {
+			if (languageData[repo.language]) {
+				languageData[repo.language] += 1
+			}
+			else {
+				languageData[repo.language] = 1
+			}
+		}
+
+		// sorting the language data by largest
+		var sortedLanguageData = []
+		Object.entries(languageData).map(([language, value]) => {
+			sortedLanguageData.push([language, value])
+		})
+		sortedLanguageData.sort(function(first, second) {
+			return(second[1] - first[1])
+		})
+
+		sortedLanguageData = sortedLanguageData.slice(0,7)
+
+		var total = 0
+		for (const [key, value] of sortedLanguageData){
+			if (key != 'null'){
+				total += value
+			}
+		}
+
+		return (
+			<div id='stackedBarChart'>
+				
+				{
+					sortedLanguageData.map(([language, value]) => {
+						if (language != 'null'){
+							return(
+								<span className={'barItem ' + language} style={{ minWidth: value/total*350, backgroundColor: 
+									props.colors[language]
+										? props.colors[language].color
+										: 'grey' 
+								}}><span className='languageTitle'>{language}</span></span>
+							)
+						}
+					})
+				}
+			</div>
+		)
+	}
 
 	function mainPage() {
 
@@ -49,6 +98,7 @@ export default function UserPage(props) {
 							<h2>
 								<a href={"https://github.com/" + userData.login} target='blank'>@{userData.login}</a>
 							</h2>
+							{stackedBarChart()}
 							<div id='userStats'>
 								<div className='userStat'>
 									<span>{userData.public_repos}</span>
@@ -112,7 +162,9 @@ export default function UserPage(props) {
 							})}
 						</div>
 					</div>
+
 				</div>
+
 			</div>
 		)
 	}
