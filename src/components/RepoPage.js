@@ -114,7 +114,11 @@ export default function RepoPage(props) {
 							data={
 								Object.entries(languageData).map(([language, value], i) => {
 									return (
-										{ title: language, value: value, color: props.colors[language].color }
+										{ title: language, value: value, color: 
+											props.colors[language]
+												? props.colors[language].color
+												: 'grey' 
+										}
 									)
 								})
 							}
@@ -137,7 +141,12 @@ export default function RepoPage(props) {
 							Object.entries(languageData).map(([language, value], i) => {
 								return (
 									<div key={i}>
-										<span style={{ 'width': '14px', 'height': '14px', 'borderRadius': '100%', 'backgroundColor': props.colors[language].color, 'display': 'inline-block', 'top': '1px', 'position': 'relative' }}></span>&nbsp;
+										<span style={{ 'width': '14px', 'height': '14px', 'borderRadius': '100%', 'backgroundColor': 
+											props.colors[language]
+												? props.colors[language].color
+												: 'grey'
+											, 
+										'display': 'inline-block', 'top': '1px', 'position': 'relative' }}></span>&nbsp;
 										<span className='language'>{language}</span>
 									</div>
 								)

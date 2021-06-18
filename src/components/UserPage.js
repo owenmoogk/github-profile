@@ -94,7 +94,7 @@ export default function UserPage(props) {
 									return (<GithubCard key={i} data={data} colors={props.colors} emojis={props.emojis} searchValue={searchValue} user={username} />)
 								}
 								else {
-									return (<GithubCard key={i} data={data} colors={props.colors} emojis={props.emojis} display='none' searchValue={searchValue} />)
+									return (<GithubCard key={i} data={data} colors={props.colors} emojis={props.emojis} display='none' searchValue={searchValue} user={username}/>)
 								}
 							})}
 						</div>

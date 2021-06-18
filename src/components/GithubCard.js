@@ -7,6 +7,8 @@ export default function GithubCard(props) {
 	var colors = props.colors
 	var description;
 
+	console.log(props)
+
 	function showOnSearch(searchValue){
 		searchValue = searchValue.toLowerCase()
 		if (data.name.toLowerCase().includes(searchValue)){
@@ -102,7 +104,12 @@ export default function GithubCard(props) {
 				<div style={{ 'fontSize': '12px', 'marginBottom': '16px', 'marginTop': '8px', 'color': '#586069' }} dangerouslySetInnerHTML={{ __html: description }}></div>
 				<div style={{ 'fontSize': '12px', 'color': '#586069', 'display': 'flex' }}>
 					<div style={{ 'display': data.language ? '' : 'none', 'marginRight': '16px' }}>
-						<span style={{ 'width': '12px', 'height': '12px', 'borderRadius': '100%', 'backgroundColor': data.language ? colors[data.language].color : '', 'display': 'inline-block', 'top': '1px', 'position': 'relative' }}></span>
+						<span style={{ 'width': '12px', 'height': '12px', 'borderRadius': '100%', 'backgroundColor': 
+							data.language
+							 	? colors[data.language]
+								 	? colors[data.language].color
+									: 'grey'
+								: '', 'display': 'inline-block', 'top': '1px', 'position': 'relative' }}></span>
 						<span> {data.language}</span>
 					</div>
 					<div style={{ 'display': data.stargazers_count === 0 ? 'none' : 'flex', 'alignItems': 'center', 'marginRight': '16px' }}>
