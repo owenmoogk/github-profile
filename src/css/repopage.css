@@ -1,56 +1,56 @@
 #repoPage {
   color: white;
   display: flex;
-  flex-direction: row;
-}
-#repoPage #left {
-  display: flex;
   flex-direction: column;
   flex: 3;
   padding-left: 40px;
   padding-top: 20px;
 }
-#repoPage #left #title #titleleft {
+#repoPage #title {
+  display: flex;
+  flex: row;
   padding-right: 50px;
 }
-#repoPage #left #title #titleleft h1 {
+#repoPage #title h1 {
   padding: 0;
 }
-#repoPage #left #title #titleleft h2 {
+#repoPage #title h2 {
   color: lightgrey;
 }
-#repoPage #left #title #titleleft h2 a {
+#repoPage #title h2 a {
   color: lightgrey;
   text-decoration: none;
 }
-#repoPage #left #title #titleleft h2 a:hover {
+#repoPage #title h2 a:hover {
   color: lightgrey;
   border-bottom: 3px solid lightgrey;
 }
-#repoPage #left #title #titleleft a {
+#repoPage #title a {
   color: white;
   text-decoration: none;
 }
-#repoPage #left #title #titleleft a:hover {
+#repoPage #title a:hover {
   color: lightgrey;
 }
-#repoPage #left #title #titleright svg {
+#repoPage #title svg {
   display: inline-block;
   vertical-align: text-bottom;
 }
-#repoPage #left #title #titleright .info {
+#repoPage #title .info {
   padding-right: 20px;
   padding-bottom: 20px;
   margin: 0;
   display: inline-block;
   vertical-align: text-bottom;
 }
-#repoPage #left #title #titleright #stats {
+#repoPage #title #stats {
   display: flex;
   padding-top: 10px;
   padding-bottom: 10px;
+  flex-direction: row;
+  padding-left: 40px;
 }
-#repoPage #left #title #titleright #stats .stat {
+#repoPage #title #stats .stat {
   display: flex;
   flex-direction: column;
   background-color: rgba(255, 255, 255, 0.2);
@@ -58,30 +58,45 @@
   padding: 10px 0;
   border-radius: 10px;
   width: 100px;
+  height: fit-content;
   text-align: center;
   border: 3px solid lightblue;
 }
-#repoPage #left #title #titleright #stats .stat span {
+#repoPage #title #stats .stat span {
   font-size: 20px;
   font-weight: bold;
 }
-#repoPage #left #bottom {
+#repoPage #buttons .stateButton {
+  font-size: 20px;
+  outline: none;
+  border: 2px solid lightblue;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  margin-right: 10px;
+  padding: 5px 20px;
+  border-radius: 10px;
+}
+#repoPage #buttons .active {
+  background-color: lightblue;
+  color: black;
+}
+#repoPage #dataPage {
   display: flex;
   flex-direction: row;
   height: 450px;
 }
-#repoPage #left #bottom #chartContainer h2 {
+#repoPage #dataPage #chartContainer h2 {
   margin-bottom: 0;
 }
-#repoPage #left #bottom #chart {
+#repoPage #dataPage #chart {
   width: 350px;
   height: 350px;
 }
-#repoPage #left #bottom #chart #chartContainer {
+#repoPage #dataPage #chart #chartContainer {
   height: 350px;
   width: 350px;
 }
-#repoPage #left #bottom #chart #chartLabels {
+#repoPage #dataPage #chart #chartLabels {
   padding-top: 10px;
   width: 100%;
   position: relative;
@@ -93,18 +108,18 @@
   flex-direction: column;
   align-items: center;
 }
-#repoPage #left #bottom #chart #chartLabels div {
+#repoPage #dataPage #chart #chartLabels div {
   width: fit-content;
 }
-#repoPage #left #bottom #contributors {
+#repoPage #dataPage #contributors {
   padding-left: 20px;
   min-width: 300px;
 }
-#repoPage #left #bottom #contributors #contributorList {
+#repoPage #dataPage #contributors #contributorList {
   overflow-y: scroll;
   height: 250px;
 }
-#repoPage #left #bottom #contributors a {
+#repoPage #dataPage #contributors a {
   color: white;
   text-decoration: none;
   font-size: 20px;
@@ -113,33 +128,12 @@
   flex-direction: row;
   align-items: center;
 }
-#repoPage #left #bottom #contributors img {
+#repoPage #dataPage #contributors img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   border: 2px solid lightblue;
 }
-#repoPage #left #bottom #contributors span {
+#repoPage #dataPage #contributors span {
   padding-bottom: 5px;
-}
-#repoPage #left #githubCards {
-  margin: 10px;
-  padding: 0 10px;
-  display: inline-flex;
-  flex-wrap: wrap;
-  max-height: 500px;
-  overflow-x: scroll;
-}
-#repoPage #left #githubCards .ghCard {
-  margin: 10px;
-  padding: 0;
-  height: max-content;
-}
-#repoPage #left #githubCards > div {
-  margin: 0;
-  padding: 0;
-}
-.customGraphLabel {
-  width: 50px;
-  height: 50px;
 }
