@@ -7,8 +7,6 @@ export default function GithubCard(props) {
 	var colors = props.colors
 	var description;
 
-	console.log(props)
-
 	function showOnSearch(searchValue){
 		searchValue = searchValue.toLowerCase()
 		if (data.name.toLowerCase().includes(searchValue)){
