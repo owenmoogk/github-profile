@@ -235,8 +235,8 @@ export default function RepoPage(props) {
 			<div id='repoPage'>
 				{renderTitle()}
 				<div id='buttons'>
-					<button onClick={() => setPage('data')} className={'stateButton ' + (page == 'data' ? 'active' : '')}>Repo Data</button>
-					<button onClick={() => setPage('components')} className={'stateButton' + (page == 'components' ? ' active' : '')}>Components</button>
+					<button onClick={() => setPage('data')} className={'stateButton ' + (page === 'data' ? 'active' : '')}>Repo Data</button>
+					<button onClick={() => setPage('components')} className={'stateButton' + (page === 'components' ? ' active' : '')}>Components</button>
 				</div>
 
 				{page === 'data'
