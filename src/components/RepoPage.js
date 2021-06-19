@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import React from 'react'
 import { useParams } from "react-router";
-import GithubCard from "./GithubCard";
+// import GithubCard from "./GithubCard";
 import { PieChart } from "react-minimal-pie-chart";
 import { BarChart, XAxis, YAxis, Bar, Tooltip, CartesianGrid } from "recharts";
 import CustomAxisTick from "./CustomAxisTick";
@@ -171,7 +171,7 @@ export default function RepoPage(props) {
 					<CartesianGrid stroke='grey' strokeDasharray="5 5" />
 					<XAxis stroke='black' dataKey="login" interval={0} tick={<CustomAxisTick />} overflow='display' height={100} />
 					<YAxis stroke='black' />
-					{/* <Tooltip stroke='transparent'/> */}
+					<Tooltip contentStyle={{ backgroundColor: 'white' }} cursor={{fill:'white', stroke: 'grey'}}/>
 					<Bar dataKey="contributions" fill="#8884d8" />
 				</BarChart>
 			)
@@ -194,7 +194,6 @@ export default function RepoPage(props) {
 					<h2>
 						Top Contributors
 					</h2>
-
 					<div id='contributorList'>
 						{contributorData.map((user, i) => {
 							return (
@@ -204,17 +203,14 @@ export default function RepoPage(props) {
 								</a>
 							)
 						})}
-
 					</div>
 				</div>
-				<div id='contributorChart' className='dataCard'>
 
+				<div id='contributorChart' className='dataCard'>
 					<h2>
 						Contributions
 					</h2>
-
 					{renderContributorChart()}
-
 				</div>
 
 				{/* <div id='data'>
@@ -247,6 +243,7 @@ export default function RepoPage(props) {
 					? renderComponents()
 					: null
 				}
+				<br/><br/><br/>
 
 			</div>
 		)
