@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import './styles.css'
 import { useEffect, useState } from 'react'
 import BackButton from './components/homepage/BackButton'
+import APIKey from './components/homepage/APIKey'
 
 export default function App() {
 
@@ -12,6 +13,7 @@ export default function App() {
 	const [rateRemaining, setRateRemaining] = useState()
 	const [rateTotal, setRateTotal] = useState()
 	const [errorMessage, setErrorMessage] = useState()
+	const [showRateLimitModal, setShowRateLimitModal] = useState()
 
 	function makeRequest(url, variableSetter) {
 		fetch(url)
@@ -20,7 +22,16 @@ export default function App() {
 	}
 
 	function getRateLimit() {
-		fetch("https://api.github.com/rate_limit")
+		var data = {}
+		if (localStorage.getItem('token')){
+			data = {
+				headers:{
+					authorization: localStorage.getItem('token')
+				}
+			}
+		}
+
+		fetch("https://api.github.com/rate_limit", data)
 			.then(response => response.json())
 			.then(json => {
 				setRateRemaining(json.rate.remaining)
@@ -29,7 +40,16 @@ export default function App() {
 	}
 
 	function makeGithubRequest(url, variableSetter) {
-		fetch(url)
+		var data = {}
+		if (localStorage.getItem('token')){
+			data = {
+				headers:{
+					authorization: localStorage.getItem('token')
+				}
+			}
+		}
+
+		fetch(url, data)
 			.then(response => response.json())
 			.then(json => variableSetter(json))
 			.then(getRateLimit())
@@ -59,10 +79,27 @@ export default function App() {
 		getRateLimit()
 	}, [])
 
+	function clickedOffModal(e){
+		var modal = document.getElementById('rateLimitModal')
+		if (e.target === modal){
+			setShowRateLimitModal(false)
+		}
+	}
+
 	return (
 		<Router>
 			<div>
-				<p id='rateLimit'><span>{rateRemaining}/{rateTotal}</span><br />Requests</p>
+				<div id='rateLimit'>
+					<svg onClick={() => setShowRateLimitModal(true)} xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="30px" height="30px" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none"><circle cx="12" cy="12" r="10" stroke="gray" strokeWidth="2" /><path d="M11.5 7h.5" stroke="gray" strokeWidth="2" strokeLinecap="round" /><path d="M10 11h2v5" stroke="gray" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /><path d="M10 16h4" stroke="gray" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></g></svg>
+					<p><span>{rateRemaining}/{rateTotal}</span><br />Requests</p>
+				</div>
+				<div id='rateLimitModal' style={{ display: showRateLimitModal ? '' : 'none' }} onClick={(e) => clickedOffModal(e)}>
+					<div className="modal-content">
+						<span className="close" onClick={() => setShowRateLimitModal(false)}>&times;</span>
+						<p style={{fontSize: '20px'}}>This website was built using the Github API. The Github API is super powerful, but limits an IP address to 60 requests per hour. If you have a github account, you can get an API key <a href='https://github.com/settings/tokens' target='_blank' rel='noreferrer'>here</a> to get many more requests, (typically 5000). If you would like to, enter it below. (this is a Frontend app using Local Storage, so no need to worry about security issues, it never leaves your computer).</p>
+						<APIKey getRateLimit={getRateLimit}/>
+					</div>
+				</div>
 				<BackButton />
 			</div>
 			<Switch>

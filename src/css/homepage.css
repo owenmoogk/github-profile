@@ -7,15 +7,6 @@ body {
 #root {
   height: 100%;
 }
-#homepage {
-  /* center both horizontally and vertically */
-  position: absolute;
-  left: 50%;
-  top: 40%;
-  transform: translate(-50%, -50%);
-  height: fit-content;
-  text-align: center;
-}
 h1 {
   color: white;
   width: fit-content;
@@ -38,43 +29,98 @@ input {
 input::placeholder {
   color: lightgray;
 }
-button {
-  width: fit-content;
-  margin: auto;
-}
-#mainCard {
-  margin: auto;
-}
-textarea {
-  background-color: #323232;
-  color: white;
-  resize: none;
-  border: none;
-  outline: none;
-  margin-top: 30px;
-  margin-left: 10%;
-  width: 80%;
-  height: 400px;
-}
-#downloadButton a {
-  color: white;
-  border-bottom: 2px solid white;
-  font-size: 20px;
-  text-decoration: none;
-  padding-top: 20px;
-  width: 100%;
-}
-#downloadButton {
+#homepage {
+  /* center both horizontally and vertically */
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  height: fit-content;
   text-align: center;
 }
 #rateLimit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   color: grey;
   font-size: 18px;
   position: fixed;
   top: 15px;
   right: 15px;
+}
+#rateLimit svg {
+  padding: 10px;
+}
+#rateLimit p {
+  padding: 0;
   margin: 0;
 }
 #rateLimit span {
   font-size: 25px;
+}
+#rateLimitModal {
+  /* The Modal (background) */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding-top: 100px;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: #000000;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+  /* Modal Content */
+  /* The Close Button */
+}
+#rateLimitModal .modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+}
+#rateLimitModal .close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+#rateLimitModal .close:hover,
+#rateLimitModal .close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+#rateLimitModal #apiKeyInput {
+  background-color: rgba(0, 0, 0, 0.2);
+  outline: none;
+  border: none;
+  border-bottom: 2px solid lightblue;
+  padding: 10px;
+  color: black;
+  font-size: 15px;
+  text-align: left;
+}
+#rateLimitModal #apiKeyInput::placeholder {
+  color: grey;
+}
+#rateLimitModal form {
+  text-align: center;
+}
+#rateLimitModal input[type='submit'] {
+  background-color: #1e2328;
+  width: fit-content;
+  padding: 5px 20px;
+  border-radius: 20px;
+  font-size: 20px;
 }
