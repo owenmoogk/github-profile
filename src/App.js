@@ -3,16 +3,17 @@ import UserPage from './components/UserPage'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import './styles.css'
 import { useEffect, useState } from 'react'
+import BackButton from './components/BackButton'
 
 export default function App() {
-	
+
 	const [emojis, setEmojis] = useState()
 	const [colors, setColors] = useState()
 	const [rateRemaining, setRateRemaining] = useState()
 	const [rateTotal, setRateTotal] = useState()
 	const [errorMessage, setErrorMessage] = useState()
-	
-	function makeRequest(url, variableSetter){
+
+	function makeRequest(url, variableSetter) {
 		fetch(url)
 			.then(response => response.json())
 			.then(data => variableSetter(data))
@@ -40,30 +41,37 @@ export default function App() {
 		var input = document.getElementById('mainInput').value
 		if (input.includes('/')) {
 			var array = input.split('/')
-			window.location.href = "/"+array[0]+"/"+array[1]
+			window.location.href = "/" + array[0] + "/" + array[1]
 		}
 		else {
-			window.location.href = '/'+input
+			window.location.href = '/' + input
 		}
 	}
 
-	function notFoundError(){
+	function notFoundError() {
 		setErrorMessage("Couldn't find that :(")
-		return(<Redirect to='/'/>)
+		return (<Redirect to='/' />)
 	}
 
 	useEffect(() => {
-		makeRequest(process.env.PUBLIC_URL+"/colors.json", setColors)
-		makeRequest(process.env.PUBLIC_URL+'/emojis.json', setEmojis)
+		makeRequest(process.env.PUBLIC_URL + "/colors.json", setColors)
+		makeRequest(process.env.PUBLIC_URL + '/emojis.json', setEmojis)
 		getRateLimit()
 	}, [])
 
 	return (
 		<Router>
-			<p id='rateLimit'><span>{rateRemaining}/{rateTotal}</span><br/>Requests</p>
+			<div>
+				<p id='rateLimit'><span>{rateRemaining}/{rateTotal}</span><br />Requests</p>
+				<BackButton />
+			</div>
 			<Switch>
-				<Route path="/:username/:repo"><RepoPage colors={colors} emojis={emojis} makeGithubRequest={makeGithubRequest} notFoundError={notFoundError}/></Route>
-				<Route path='/:username'><UserPage colors={colors} emojis={emojis} makeGithubRequest={makeGithubRequest} notFoundError={notFoundError}/></Route>
+				<Route path="/:username/:repo">
+					<RepoPage colors={colors} emojis={emojis} makeGithubRequest={makeGithubRequest} notFoundError={notFoundError} />
+				</Route>
+				<Route path='/:username'>
+					<UserPage colors={colors} emojis={emojis} makeGithubRequest={makeGithubRequest} notFoundError={notFoundError} />
+				</Route>
 				<Route path='/'>
 					<div id='homepage'>
 						<h1>Github Profile</h1>
