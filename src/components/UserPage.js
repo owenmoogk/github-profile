@@ -54,14 +54,14 @@ export default function UserPage(props) {
 			<div id='stackedBarChart'>
 				
 				{
-					sortedLanguageData.map(([language, value]) => {
+					sortedLanguageData.map(([language, value], i) => {
 						if (language !== 'null'){
 							return(
-								<span className={'barItem ' + language} style={{ minWidth: value/total*350, backgroundColor: 
+								<span key={i} className={'barItem ' + language} style={{ minWidth: value/total*350, backgroundColor: 
 									props.colors[language]
 										? props.colors[language].color
 										: 'grey' 
-								}}><span className='languageTitle'>{language}</span></span>
+								}}><span key={i} className='languageTitle'>{language}</span></span>
 							)
 						}
 						return null
