@@ -3,7 +3,7 @@ import UserPage from './components/UserPage'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import './styles.css'
 import { useEffect, useState } from 'react'
-import BackButton from './components/BackButton'
+import BackButton from './components/homepage/BackButton'
 
 export default function App() {
 
