@@ -17,13 +17,9 @@ export default function App() {
 			.then(response => response.json())
 			.then(data => variableSetter(data))
 	}
-	
-	function getRateLimit(){
-		fetch("https://api.github.com/rate_limit", {
-			headers:{
-				authorization: "token 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 "
-			}
-		})
+
+	function getRateLimit() {
+		fetch("https://api.github.com/rate_limit")
 			.then(response => response.json())
 			.then(json => {
 				setRateRemaining(json.rate.remaining)
@@ -31,12 +27,8 @@ export default function App() {
 			})
 	}
 
-	function makeGithubRequest(url, variableSetter){
-		fetch(url, {
-			headers:{
-				authorization: "token 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 "
-			}
-		})
+	function makeGithubRequest(url, variableSetter) {
+		fetch(url)
 			.then(response => response.json())
 			.then(json => variableSetter(json))
 			.then(getRateLimit())
