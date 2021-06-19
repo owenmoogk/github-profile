@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useRouteMatch } from "react-router"
 
 export default function APIKey(props) {
@@ -35,14 +35,10 @@ export default function APIKey(props) {
 			})
 	}
 
-	useEffect(() => {
-		document.getElementById('apiKeyInput').value = localStorage.getItem('token') ? localStorage.getItem('token').replace('token ', '') : null
-	}, [])
-
 	if (matched && matched.isExact) {
 		return (
 			<form onSubmit={(e) => submitData(e)}>
-				<input type='text' placeholder='ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ' id='apiKeyInput' />
+				<input type='text' placeholder='ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ' id='apiKeyInput' defaultValue={localStorage.getItem('token') ? localStorage.getItem('token').replace('token ', '') : null}/>
 				<p style={{marginTop: 0}}>{message}</p>
 				<input type='submit' />
 			</form>
