@@ -33,10 +33,10 @@ export default function UserPage(props) {
 		}
 
 		// sorting the language data by largest
-		var sortedLanguageData = []
-		Object.entries(languageData).map(([language, value]) => {
-			sortedLanguageData.push([language, value])
+		var sortedLanguageData = Object.entries(languageData).map(([language, value]) => {
+			return([language, value])
 		})
+		
 		sortedLanguageData.sort(function(first, second) {
 			return(second[1] - first[1])
 		})
@@ -45,7 +45,7 @@ export default function UserPage(props) {
 
 		var total = 0
 		for (const [key, value] of sortedLanguageData){
-			if (key != 'null'){
+			if (key !== 'null'){
 				total += value
 			}
 		}
@@ -55,7 +55,7 @@ export default function UserPage(props) {
 				
 				{
 					sortedLanguageData.map(([language, value]) => {
-						if (language != 'null'){
+						if (language !== 'null'){
 							return(
 								<span className={'barItem ' + language} style={{ minWidth: value/total*350, backgroundColor: 
 									props.colors[language]
@@ -64,6 +64,7 @@ export default function UserPage(props) {
 								}}><span className='languageTitle'>{language}</span></span>
 							)
 						}
+						return null
 					})
 				}
 			</div>
