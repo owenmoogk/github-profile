@@ -77,7 +77,6 @@
 }
 #repoPage #dataPage .dataCard {
   border: 5px dashed lightblue;
-  border-radius: 5px;
   height: 100%;
   margin: 20px;
   display: flex;
@@ -137,4 +136,45 @@
 }
 #repoPage #dataPage #contributors span {
   padding-bottom: 5px;
+}
+#repoPage #components {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+#repoPage #components #cardComponent,
+#repoPage #components #cornerComponent {
+  margin: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 5px dashed lightblue;
+}
+#repoPage #components #cardComponent #cardOptions {
+  padding-top: 15px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+#repoPage #components #cardComponent #cardOptions #options {
+  width: max-content;
+}
+#repoPage #components #cardComponent #cardOptions #downloadButtons {
+  width: fit-content;
+  align-items: center;
+}
+#repoPage #components #cardComponent #cardOptions #downloadButtons svg {
+  display: inline-block;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+#repoPage #components #cardComponent #cardOptions #downloadButtons svg:hover {
+  cursor: pointer;
+  fill: lightblue;
+}
+#repoPage #components h2 {
+  margin-top: 0;
 }

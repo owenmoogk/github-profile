@@ -94,7 +94,6 @@
 
 		.dataCard{
 			border: 5px dashed lightblue;
-			border-radius: 5px;
 			height: 100%;
 			margin: 20px;
 			display: flex;
@@ -171,7 +170,59 @@
 		}
 	}
 
+	#components{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		
+		#cardComponent, #cornerComponent{
+			margin: 20px;
+			padding: 20px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			border: 5px dashed lightblue;
+		}
 
+		#cardComponent{
+
+			#cardOptions{
+				padding-top: 15px;
+				display: flex;
+				flex-direction: row;
+				width: 100%;
+				justify-content: space-between;
+
+				#options{
+					width: max-content;
+				}
+				
+				#downloadButtons{
+					width: fit-content;
+					align-items: center;
+		
+					svg{
+						display: inline-block;
+						vertical-align: text-bottom;
+						fill: currentColor;
+					}
+
+					svg:hover{
+						cursor: pointer;
+						fill: lightblue;
+					}
+				}
+			}
+
+
+
+		}
+
+		h2{
+			margin-top: 0;
+		}
+	}
 	// #githubCards{
 	// 	margin: 10px;
 	// 	padding: 0 10px;

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import React from 'react'
 import { useParams } from "react-router";
-// import GithubCard from "./GithubCard";
 import { PieChart } from "react-minimal-pie-chart";
 import { BarChart, XAxis, YAxis, Bar, Tooltip, CartesianGrid } from "recharts";
 import CustomAxisTick from "./CustomAxisTick";
+import GithubCard from "./repopage/GithubCard";
+import { toPng } from "html-to-image";
+import download from "downloadjs";
 
 /* eslint-disable react-hooks/exhaustive-deps */
 export default function RepoPage(props) {
@@ -17,6 +19,9 @@ export default function RepoPage(props) {
 	const [selected, setSelected] = useState()
 
 	const [page, setPage] = useState('data')
+
+	const [includeZeros, setIncludeZeros] = useState()
+	const [includeUsername, setIncludeUsername] = useState()
 
 	// first data request
 	useEffect(() => {
@@ -220,7 +225,80 @@ export default function RepoPage(props) {
 	}
 
 	function renderComponents() {
-		return (null)
+
+		function downloadCardImage() {
+			var node = document.getElementById('mainCard')
+			toPng(node)
+				.then(function (dataUrl) {
+					download(dataUrl, 'my-node.png');
+				})
+				.catch(function (error) {
+					console.error('oops, something went wrong!', error);
+				});
+		}
+
+		function copyCardHtml() {
+			var node = document.getElementById('cardContainer')
+			var input = document.getElementById('cardHtml')
+
+			// we have to show the input, select and copy, and then hide the input for it to work
+			// we cant copy with 'display':'none'
+			input.style.display = 'block'
+			input.value = node.innerHTML
+			input.select()
+			document.execCommand('copy')
+			input.style.display = 'none'
+		}
+
+		return (
+			<div id='components'>
+				<div id='cardComponent'>
+					<h2>Github Cards</h2>
+					<div id='cardContainer'>
+						<GithubCard data={data} colors={props.colors} emojis={props.emojis} username={username} link='external' includeUsername={includeUsername} includeZeros={includeZeros} />
+					</div>
+
+					<div id='cardOptions'>
+
+						<div id='options'>
+							<div>
+								<input type="checkbox" id='includeUsername' onChange={(e) => setIncludeUsername(e.target.checked)} />
+								<label htmlFor='includeUsername'>Include Username</label>
+							</div>
+							<div>
+								<input type="checkbox" id='includeZeros' onChange={(e) => setIncludeZeros(e.target.checked)} />
+								<label htmlFor='includeZeros'>Include Zeros</label>
+							</div>
+						</div>
+
+
+						<div id='downloadButtons'>
+							{/* download svg */}
+							<abbr title='Download PNG'>
+								<svg width="3em" height="3em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 50 50" onClick={() => downloadCardImage()}>
+									<path d="M31 31H5a1 1 0 0 0 0 2h26a1 1 0 0 0 0-2z" />
+									<path d="M18 29.48l10.61-10.61a1 1 0 0 0-1.41-1.41L19 25.65V5a1 1 0 0 0-2 0v20.65l-8.19-8.19a1 1 0 1 0-1.41 1.41z" />
+								</svg>
+							</abbr>
+
+							{/* embed svg */}
+							<abbr title='Copy HTML to Clipboard'>
+								<svg width="3em" height="2.4em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 30 24" onClick={() => copyCardHtml()}>
+									<path d="M13 11.5l1.5 1.5l5-5l-5-5L13 4.5L16.5 8z" />
+									<path d="M7 4.5L5.5 3l-5 5l5 5L7 11.5L3.5 8z" />
+									<path d="M10.958 2.352l1.085.296l-3 11l-1.085-.296l3-11z" />
+								</svg>
+							</abbr>
+							<input style={{display:'none'}} id='cardHtml' type='text'/>
+						</div>
+					</div>
+				</div>
+
+				<div id='cornerComponent'>
+					<h2>Github Corners</h2>
+				</div>
+			</div>
+		)
 	}
 
 	// loading the three subpages depending on the state
