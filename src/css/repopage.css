@@ -76,10 +76,8 @@
   padding-bottom: 3px;
 }
 #repoPage #dataPage .dataCard {
-  background-color: white;
+  border: 5px dashed lightblue;
   border-radius: 5px;
-  box-shadow: 0 0 20px black;
-  color: black;
   height: 100%;
   margin: 20px;
   display: flex;
@@ -120,7 +118,7 @@
   width: 80%;
 }
 #repoPage #dataPage #contributors a {
-  color: black;
+  color: white;
   text-decoration: none;
   font-size: 20px;
   margin-bottom: 10px;
@@ -129,7 +127,7 @@
   align-items: center;
 }
 #repoPage #dataPage #contributors a:hover {
-  color: grey;
+  color: lightgrey;
 }
 #repoPage #dataPage #contributors img {
   width: 50px;
