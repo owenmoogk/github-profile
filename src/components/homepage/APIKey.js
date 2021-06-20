@@ -1,9 +1,7 @@
 import { useState } from "react"
-import { useRouteMatch } from "react-router"
 
 export default function APIKey(props) {
 	
-	const matched = useRouteMatch(['/'])
 	const [message, setMessage] = useState()
 
 	function submitData(e) {
@@ -35,14 +33,11 @@ export default function APIKey(props) {
 			})
 	}
 
-	if (matched && matched.isExact) {
-		return (
-			<form onSubmit={(e) => submitData(e)}>
-				<input type='text' placeholder='ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ' id='apiKeyInput' defaultValue={localStorage.getItem('token') ? localStorage.getItem('token').replace('token ', '') : null}/>
-				<p style={{marginTop: 0}}>{message}</p>
-				<input type='submit' />
-			</form>
-		)
-	}
-	return(null)
+	return (
+		<form onSubmit={(e) => submitData(e)}>
+			<input type='text' placeholder='ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ' id='apiKeyInput' defaultValue={localStorage.getItem('token') ? localStorage.getItem('token').replace('token ', '') : null}/>
+			<p style={{marginTop: 0}}>{message}</p>
+			<input type='submit' />
+		</form>
+	)
 }
