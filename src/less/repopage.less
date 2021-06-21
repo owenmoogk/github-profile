@@ -178,45 +178,64 @@
 		#cardComponent, #cornerComponent{
 			margin: 20px;
 			padding: 20px;
+			width: 400px;
 			display: flex;
 			flex-direction: column;
-			justify-content: center;
 			align-items: center;
 			border: 5px dashed lightblue;
 		}
 
-		#cardComponent{
+		#cardOptions{
+			padding-top: 15px;
+			display: flex;
+			flex-direction: row;
+			width: 100%;
+			justify-content: space-between;
 
-			#cardOptions{
-				padding-top: 15px;
+			#options{
+				width: max-content;
 				display: flex;
-				flex-direction: row;
-				width: 100%;
-				justify-content: space-between;
+				flex-direction: column;
 
-				#options{
-					width: max-content;
-				}
-				
-				#downloadButtons{
-					width: fit-content;
-					align-items: center;
-		
-					svg{
-						display: inline-block;
-						vertical-align: text-bottom;
-						fill: currentColor;
-					}
-
-					svg:hover{
-						cursor: pointer;
-						fill: lightblue;
-					}
+				input[type='text'], input[type='number']{
+					background-color: rgba(255, 255, 255, 0.2);
+					outline: none;
+					border: none;
+					border-bottom: 2px solid lightblue;
+					font-size: 15px;
+					width: 100px;
+					padding: 3px;
+					margin: 0;
+					color: white;
+					text-align: left;
+					margin-top: 3px;
+					margin-right: 10px;
 				}
 			}
+			
+			#downloadButtons{
+				width: 120px;
+				align-items: center;
+	
+				svg{
+					display: inline-block;
+					vertical-align: text-bottom;
+					fill: currentColor;
+				}
 
+				svg:hover{
+					cursor: pointer;
+					fill: lightblue;
+				}
+			}
+		}
 
+		#githubCornerContainer{
+			display: flex;
+			justify-content: center;
+			align-items: center;
 
+			border-radius: 10px;
 		}
 
 		h2{

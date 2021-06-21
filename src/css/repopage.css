@@ -146,34 +146,57 @@
 #repoPage #components #cornerComponent {
   margin: 20px;
   padding: 20px;
+  width: 400px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   border: 5px dashed lightblue;
 }
-#repoPage #components #cardComponent #cardOptions {
+#repoPage #components #cardOptions {
   padding-top: 15px;
   display: flex;
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
 }
-#repoPage #components #cardComponent #cardOptions #options {
+#repoPage #components #cardOptions #options {
   width: max-content;
+  display: flex;
+  flex-direction: column;
 }
-#repoPage #components #cardComponent #cardOptions #downloadButtons {
-  width: fit-content;
+#repoPage #components #cardOptions #options input[type='text'],
+#repoPage #components #cardOptions #options input[type='number'] {
+  background-color: rgba(255, 255, 255, 0.2);
+  outline: none;
+  border: none;
+  border-bottom: 2px solid lightblue;
+  font-size: 15px;
+  width: 100px;
+  padding: 3px;
+  margin: 0;
+  color: white;
+  text-align: left;
+  margin-top: 3px;
+  margin-right: 10px;
+}
+#repoPage #components #cardOptions #downloadButtons {
+  width: 120px;
   align-items: center;
 }
-#repoPage #components #cardComponent #cardOptions #downloadButtons svg {
+#repoPage #components #cardOptions #downloadButtons svg {
   display: inline-block;
   vertical-align: text-bottom;
   fill: currentColor;
 }
-#repoPage #components #cardComponent #cardOptions #downloadButtons svg:hover {
+#repoPage #components #cardOptions #downloadButtons svg:hover {
   cursor: pointer;
   fill: lightblue;
+}
+#repoPage #components #githubCornerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
 }
 #repoPage #components h2 {
   margin-top: 0;

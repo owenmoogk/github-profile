@@ -24,6 +24,12 @@ export default function RepoPage(props) {
 	const [includeZeros, setIncludeZeros] = useState()
 	const [includeUsername, setIncludeUsername] = useState()
 
+	const [backgroundColor, setBackgroundColor] = useState('black')
+	const [cornerColor, setCornerColor] = useState('white')
+	const [align, setAlign] = useState()
+	const [size, setSize] = useState(100)
+	const [newTab, setNewTab] = useState(false)
+
 	// first data request
 	useEffect(() => {
 		props.makeGithubRequest('https://api.github.com/repos/' + username + '/' + repo, setData)
@@ -228,10 +234,21 @@ export default function RepoPage(props) {
 	function renderComponents() {
 
 		function downloadCardImage() {
-			var node = document.getElementById('mainCard')
+			var node = document.getElementById('cardContainer')
 			toPng(node)
 				.then(function (dataUrl) {
-					download(dataUrl, 'my-node.png');
+					download(dataUrl, repo + '.png');
+				})
+				.catch(function (error) {
+					console.error('oops, something went wrong!', error);
+				});
+		}
+
+		function downloadCornerImage() {
+			var node = document.getElementById('cornerImage')
+			toPng(node)
+				.then(function (dataUrl) {
+					download(dataUrl, repo + '-corner.png');
 				})
 				.catch(function (error) {
 					console.error('oops, something went wrong!', error);
@@ -240,6 +257,19 @@ export default function RepoPage(props) {
 
 		function copyCardHtml() {
 			var node = document.getElementById('cardContainer')
+			var input = document.getElementById('cardHtml')
+
+			// we have to show the input, select and copy, and then hide the input for it to work
+			// we cant copy with 'display':'none'
+			input.style.display = 'block'
+			input.value = node.innerHTML
+			input.select()
+			document.execCommand('copy')
+			input.style.display = 'none'
+		}
+
+		function copyCornerHtml() {
+			var node = document.getElementById('cornerImage')
 			var input = document.getElementById('cardHtml')
 
 			// we have to show the input, select and copy, and then hide the input for it to work
@@ -289,7 +319,6 @@ export default function RepoPage(props) {
 									<path d="M10.958 2.352l1.085.296l-3 11l-1.085-.296l3-11z" />
 								</svg>
 							</abbr>
-							<input style={{ display: 'none' }} id='cardHtml' type='text' />
 						</div>
 					</div>
 				</div>
@@ -300,7 +329,83 @@ export default function RepoPage(props) {
 			return (
 				<div id='cornerComponent'>
 					<h2>Github Corners</h2>
-					<GithubCorner href={data.html_url} size={80} color='red' backgroundColor='blue' />
+
+					<div id='githubCornerContainer' style={{ height: '125px', width: '125px'}}>
+						<GithubCorner href={data.html_url} size={size} color={cornerColor} backgroundColor={backgroundColor} newTab={newTab} align={align} />
+					</div>
+
+					<div id='cardOptions' style={{zIndex: 10}}>
+
+						<div id='options'>
+							<div>
+								<input type="radio" name="position" id='left' value="left" onClick={() => setAlign('left')} />
+								<label htmlFor="left">Left</label>
+							</div>
+
+							<div>
+								<input type="radio" name="position" id='right' value="right" onClick={() => setAlign('right')} />
+								<label htmlFor="right">Right</label>
+							</div>
+
+							<br />
+
+							<div>
+								<input type="checkbox" id='newTab' onChange={(e) => setNewTab(e.target.checked)} />
+								<label htmlFor="newTab">Open in New Tab</label>
+							</div>
+
+							<br />
+
+							<table>
+								<tbody>
+									<tr>
+										<td>
+											Background Color: &nbsp;
+										</td>
+										<td>
+											<input type='text' id='backgroundColorInput' onChange={(e) => setBackgroundColor(e.target.value)} />
+										</td>
+									</tr>
+									<tr>
+										<td>
+											Octocat Color:
+										</td>
+										<td>
+											<input type='text' id='colorInput' onChange={(e) => setCornerColor(e.target.value ? e.target.value : 'black')} />
+										</td>
+									</tr>
+									<tr>
+										<td>
+											Size (pixels):
+										</td>
+										<td>
+											<input type="number" id='size' defaultValue='100' onChange={(e) => setSize(e.target.value ? e.target.value > 250 ? 250 : e.target.value : 100)} />
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<div id='downloadButtons'>
+							{/* download svg */}
+							<abbr title='Download PNG'>
+								<svg width="3em" height="3em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 50 50" onClick={() => downloadCornerImage()}>
+									<path d="M31 31H5a1 1 0 0 0 0 2h26a1 1 0 0 0 0-2z" />
+									<path d="M18 29.48l10.61-10.61a1 1 0 0 0-1.41-1.41L19 25.65V5a1 1 0 0 0-2 0v20.65l-8.19-8.19a1 1 0 1 0-1.41 1.41z" />
+								</svg>
+							</abbr>
+
+							{/* embed svg */}
+							<abbr title='Copy HTML to Clipboard'>
+								<svg width="3em" height="3em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 30 24" onClick={() => copyCornerHtml()}>
+									<path d="M13 11.5l1.5 1.5l5-5l-5-5L13 4.5L16.5 8z" />
+									<path d="M7 4.5L5.5 3l-5 5l5 5L7 11.5L3.5 8z" />
+									<path d="M10.958 2.352l1.085.296l-3 11l-1.085-.296l3-11z" />
+								</svg>
+							</abbr>
+							<input style={{ display: 'none' }} id='cardHtml' type='text' />
+						</div>
+					</div>
 				</div>
 			)
 		}
