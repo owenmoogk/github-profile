@@ -7,6 +7,7 @@ import CustomAxisTick from "./CustomAxisTick";
 import GithubCard from "./repopage/GithubCard";
 import { toPng } from "html-to-image";
 import download from "downloadjs";
+import GithubCorner from "./repopage/GithubCorner";
 
 /* eslint-disable react-hooks/exhaustive-deps */
 export default function RepoPage(props) {
@@ -250,8 +251,8 @@ export default function RepoPage(props) {
 			input.style.display = 'none'
 		}
 
-		return (
-			<div id='components'>
+		function loadGithubCard() {
+			return (
 				<div id='cardComponent'>
 					<h2>Github Cards</h2>
 					<div id='cardContainer'>
@@ -271,7 +272,6 @@ export default function RepoPage(props) {
 							</div>
 						</div>
 
-
 						<div id='downloadButtons'>
 							{/* download svg */}
 							<abbr title='Download PNG'>
@@ -283,20 +283,34 @@ export default function RepoPage(props) {
 
 							{/* embed svg */}
 							<abbr title='Copy HTML to Clipboard'>
-								<svg width="3em" height="2.4em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 30 24" onClick={() => copyCardHtml()}>
+								<svg width="3em" height="3em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 30 24" onClick={() => copyCardHtml()}>
 									<path d="M13 11.5l1.5 1.5l5-5l-5-5L13 4.5L16.5 8z" />
 									<path d="M7 4.5L5.5 3l-5 5l5 5L7 11.5L3.5 8z" />
 									<path d="M10.958 2.352l1.085.296l-3 11l-1.085-.296l3-11z" />
 								</svg>
 							</abbr>
-							<input style={{display:'none'}} id='cardHtml' type='text'/>
+							<input style={{ display: 'none' }} id='cardHtml' type='text' />
 						</div>
 					</div>
 				</div>
+			)
+		}
 
+		function loadGithubCorner() {
+			return (
 				<div id='cornerComponent'>
 					<h2>Github Corners</h2>
+					<GithubCorner href={data.html_url} size={80} color='red' backgroundColor='blue' />
 				</div>
+			)
+		}
+
+		return (
+			<div id='components'>
+
+				{loadGithubCard()}
+
+				{loadGithubCorner()}
 			</div>
 		)
 	}
