@@ -194,16 +194,16 @@ export default function RepoPage(props) {
 
 		return (
 			<div id='dataPage'>
-				<div className='dataCard' id='languageCard'>
-					<h2>
-						Languages
-					</h2>
-					{
-						Object.entries(languageData).length === 0
-							? null
-							: renderLanguageChart()
-					}
-				</div>
+				{Object.entries(languageData).length !== 0
+					? <div className='dataCard' id='languageCard'>
+						<h2>
+							Languages
+						</h2>
+						{renderLanguageChart()}
+					</div>
+					: null
+				}
+
 
 				<div id='contributors' className='dataCard'>
 					<h2>
@@ -330,11 +330,11 @@ export default function RepoPage(props) {
 				<div id='cornerComponent'>
 					<h2>Github Corners</h2>
 
-					<div id='githubCornerContainer' style={{ height: '125px', width: '125px'}}>
+					<div id='githubCornerContainer' style={{ height: '125px', width: '125px' }}>
 						<GithubCorner href={data.html_url} size={size} color={cornerColor} backgroundColor={backgroundColor} newTab={newTab} align={align} />
 					</div>
 
-					<div id='cardOptions' style={{zIndex: 10}}>
+					<div id='cardOptions' style={{ zIndex: 10 }}>
 
 						<div id='options'>
 							<div>
