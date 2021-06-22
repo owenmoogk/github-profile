@@ -186,7 +186,7 @@ export default function RepoPage(props) {
 					<CartesianGrid stroke='grey' strokeDasharray="5 5" />
 					<XAxis stroke='white' dataKey="login" interval={0} tick={<CustomAxisTick />} overflow='display' height={100} />
 					<YAxis stroke='white' />
-					<Tooltip contentStyle={{ backgroundColor: 'white' }} cursor={{ fill: 'white', stroke: 'grey' }} />
+					<Tooltip contentStyle={{ backgroundColor: 'white', color: 'black' }} cursor={{ fill: 'rgb(30, 35, 40)', stroke: 'grey' }} />
 					<Bar dataKey="contributions" fill="#8884d8" />
 				</BarChart>
 			)
