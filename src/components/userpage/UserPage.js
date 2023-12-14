@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import React from 'react'
 import { useParams } from "react-router";
-import GithubCard from './GithubCard'
+import GithubCard from '../GithubCard'
 // import {useWhatChanged} from '@simbathesailor/use-what-changed'
 
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -174,7 +174,7 @@ export default function UserPage(props) {
 		userData && userRepos && props.colors && props.emojis
 			? userData.type === "User"
 				? mainPage()
-				: props.notFoundError()
+				: props.notFoundError("User doesn't exist")
 			: null
 	);
 }

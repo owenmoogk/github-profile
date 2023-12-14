@@ -3,11 +3,12 @@ import React from 'react'
 import { useParams } from "react-router";
 import { PieChart } from "react-minimal-pie-chart";
 import { BarChart, XAxis, YAxis, Bar, Tooltip, CartesianGrid } from "recharts";
-import CustomAxisTick from "./CustomAxisTick";
-import GithubCard from "./repopage/GithubCard";
+import CustomAxisTick from "../CustomAxisTick";
+import GithubCard from "./GithubCard";
 import { toPng } from "html-to-image";
 import download from "downloadjs";
-import GithubCorner from "./repopage/GithubCorner";
+import GithubCorner from "./GithubCorner";
+import { Link } from "react-router-dom/dist";
 
 /* eslint-disable react-hooks/exhaustive-deps */
 export default function RepoPage(props) {
@@ -39,7 +40,10 @@ export default function RepoPage(props) {
 	useEffect(() => {
 		if (data) {
 			props.makeGithubRequest(data.languages_url, setLanguageData)
-			props.makeGithubRequest(data.contributors_url + '?per_page=10', setContributorData)
+			props.makeGithubRequest(data.contributors_url + '?per_page=10', setContributorData).catch(error => {
+				setContributorData([])
+
+			})
 		}
 	}, [data])
 
@@ -212,10 +216,10 @@ export default function RepoPage(props) {
 					<div id='contributorList'>
 						{contributorData.map((user, i) => {
 							return (
-								<a key={i} href={'/' + user.login}>
+								<Link key={i} to={"/"+user.login}>
 									<img src={user.avatar_url} alt='' />
 									<span> &nbsp; {user.login}</span>
-								</a>
+								</Link>
 							)
 						})}
 					</div>
@@ -454,7 +458,7 @@ export default function RepoPage(props) {
 				? languageData && contributorData
 					? mainPage()
 					: null
-				: props.notFoundError()
+				: props.notFoundError("Repository doesn't exist")
 
 			: null
 	);
